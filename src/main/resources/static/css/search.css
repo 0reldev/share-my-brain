@@ -42,6 +42,7 @@
 .search button:hover {
     color: var(--sunsetOrange)
 }
+
 h3{
     color: var(--metallicSeaweed);
     font-size: 1rem;
@@ -49,6 +50,7 @@ h3{
 }
 
 @media screen and (min-width: 768px) {
+
     .title-search {
         flex-direction: row;
         justify-content: space-between;
@@ -70,9 +72,11 @@ h3{
         top: -30px;
         font-size: 1.5rem;
     }
+
     .skillQuestion{
         padding: 0.5rem 0;
     }
+
     h3{
         display: none;
     }

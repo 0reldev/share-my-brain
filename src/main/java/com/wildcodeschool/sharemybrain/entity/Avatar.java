@@ -1,6 +1,7 @@
 package com.wildcodeschool.sharemybrain.entity;
 
 public class Avatar {
+
     private int id;
     private String url;
 
@@ -11,6 +12,7 @@ public class Avatar {
     }
 
     public Avatar(int id, String url) {
+
         this.id = id;
         this.url = url;
     }

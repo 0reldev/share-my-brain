@@ -23,9 +23,11 @@ h3 {
     width: 100%;
     font-size: 1rem;
 }
+
 .answerQuestion{
     width: 100%;
 }
+
 h4{
     color: var(--gainsboro);
     width: 100%;
@@ -74,19 +76,23 @@ input {
 section div img {
     display: none;
 }
+
 .question-infos{
     width: 100%;
 }
+
 .question-infos p{
     text-align: left;
     width: 100%;
 }
+
 .info-userQuestion{
     width: 100%;
 }
 section div h4{
     text-align: left;
 }
+
 #question-desktop{
     width: 100%;
 }
@@ -105,9 +111,11 @@ section div h4{
         height: 100%;
         flex-direction: initial;
     }
+
     .answerQuestion{
         width: 10%;
     }
+
     #question-desktop {
         display: flex;
         flex-direction: column;
@@ -130,18 +138,22 @@ section div h4{
         width: 4vw;
         height: 3vw;
     }
+
     section p{
         width: 100%;
     }
-   section div h4{
+
+    section div h4{
         display: none;
     }
+
     .question-infos {
         margin-top: 1rem;
         display: flex;
         justify-content: space-between;
         width: 20%;
     }
+
     .info-userQuestion{
         width: 8%;
     }

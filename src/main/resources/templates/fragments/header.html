@@ -1,82 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body th:fragment="header (logged, page, avatar, username)">
-<header class="index-header header" th:if="${not logged}">
-    <div class="logo">
-        <a href="/" class="img"></a>
-        <a href="/">ShareMyBrain</a>
-    </div>
-    <div class="btns-header" th:if="${page == 'index'}">
-        <a class="btn-log" href="/login">Log in</a>
-        <a class="button btn-register" href="/register">Register</a>
-    </div>
-    <div class="btns-header" th:if="${page == 'register'}">
-        <a class="button btn-register" href="/login">Log in</a>
-    </div>
-    <div class="btns-header" th:if="${page == 'login'}">
-        <a class="button btn-register" href="/register">Register</a>
-    </div>
-    <div class="btn-burger">
-        <span></span>
-    </div>
-</header>
-<header class="log-header header" th:if="${logged}">
-    <div class="left-icons">
-        <div class="logo">
-            <a href="/" class="img"></a>
-            <a href="/">ShareMyBrain</a>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body th:fragment="header (logged, page, avatar, username)">
+        <header class="index-header header" th:if="${not logged}">
+            <div class="logo">
+                <a href="/" class="img"></a>
+                <a href="/">ShareMyBrain</a>
+            </div>
+            <div class="btns-header" th:if="${page == 'index'}">
+                <a class="btn-log" href="/login">Log in</a>
+                <a class="button btn-register" href="/register">Register</a>
+            </div>
+            <div class="btns-header" th:if="${page == 'register'}">
+                <a class="button btn-register" href="/login">Log in</a>
+            </div>
+            <div class="btns-header" th:if="${page == 'login'}">
+                <a class="button btn-register" href="/register">Register</a>
+            </div>
+            <div class="btn-burger">
+                <span></span>
+            </div>
+        </header>
+        <header class="log-header header" th:if="${logged}">
+            <div class="left-icons">
+                <div class="logo">
+                    <a href="/" class="img"></a>
+                    <a href="/">ShareMyBrain</a>
+                </div>
+                <div class="btns-nav">
+                    <div class="icon-nav nav-brain">
+                        <img th:src="@{/images/brain2.png}">
+                        <a href="/questions">Answer</a>
+                    </div>
+                    <div class="icon-nav nav-question">
+                        <i class="fas fa-question"></i>
+                        <a href="/ask">Ask</a>
+                    </div>
+                    <div class="icon-nav nav-search">
+                        <img th:src="@{/images/search.png}">
+                        <a href="/search">Search</a>
+                    </div>
+                    <div class="icon-nav nav-exit">
+                        <img th:src="@{/images/exit.png}">
+                        <a href="/logout">Log out</a>
+                    </div>
+                </div>
+            </div>
+            <div class="user">
+                <p th:text="|Hello ${username}|">Hello</p>
+                <a href="/profile"><img src="/images" th:src="@{/images/avatar/{avatar}(avatar = ${avatar})}" th:attr="alt=${avatar}" alt="avatar"></a>
+            </div>
+            <div class="btn-burger">
+                <span></span>
+            </div>
+        </header>
+        <div class="menu-burger" th:if="${not logged}">
+            <div th:if="${page == 'index'}">
+                <a href="/login">Log in</a>
+                <a href="/register">Register</a>
+            </div>
+            <div th:if="${page == 'register'}">
+                <a href="/login">Log in</a>
+            </div>
+            <div th:if="${page == 'login'}">
+                <a href="/register">Register</a>
+            </div>
         </div>
-        <div class="btns-nav">
-            <div class="icon-nav nav-brain">
-                <img th:src="@{/images/brain2.png}">
+        <div class="menu-burger" th:if="${logged}">
+            <div>
                 <a href="/questions">Answer</a>
-            </div>
-            <div class="icon-nav nav-question">
-                <i class="fas fa-question"></i>
                 <a href="/ask">Ask</a>
-            </div>
-            <div class="icon-nav nav-search">
-                <img th:src="@{/images/search.png}">
                 <a href="/search">Search</a>
-            </div>
-            <div class="icon-nav nav-exit">
-                <img th:src="@{/images/exit.png}">
-                <a href="/logout">Log out</a>
+                <a href="/profile">Profile</a>
+                <a href="/logout">Log Out</a>
             </div>
         </div>
-    </div>
-
-    <div class="user">
-        <p th:text="|Hello ${username}|">Hello</p>
-        <a href="/profile"><img src="/images" th:src="@{/images/avatar/{avatar}(avatar = ${avatar})}" th:attr="alt=${avatar}" alt="avatar"></a>
-    </div>
-    <div class="btn-burger">
-        <span></span>
-    </div>
-</header>
-<div class="menu-burger" th:if="${not logged}">
-    <div th:if="${page == 'index'}">
-        <a href="/login">Log in</a>
-        <a href="/register">Register</a>
-    </div>
-    <div th:if="${page == 'register'}">
-        <a href="/login">Log in</a>
-    </div>
-    <div th:if="${page == 'login'}">
-        <a href="/register">Register</a>
-    </div>
-</div>
-<div class="menu-burger" th:if="${logged}">
-    <div>
-        <a href="/questions">Answer</a>
-        <a href="/ask">Ask</a>
-        <a href="/search">Search</a>
-        <a href="/profile">Profile</a>
-        <a href="/logout">Log Out</a>
-    </div>
-</div>
-</body>
+    </body>
 </html>

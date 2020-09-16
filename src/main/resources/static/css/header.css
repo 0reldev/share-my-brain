@@ -126,11 +126,14 @@ a {
 .user {
     display: none;
 }
+
 @media screen and (min-width: 768px) {
+
     /*GENERAL*/
     .left-icons {
         display: flex;
     }
+
     .logo {
         flex-basis: 20%;
     }

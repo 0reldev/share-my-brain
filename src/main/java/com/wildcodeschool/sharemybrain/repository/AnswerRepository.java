@@ -17,10 +17,12 @@ public class AnswerRepository {
     private final static String DB_PASSWORD = "p0uleR3qu3st?";
 
     public void answerQuestion(int idQuestion, int idUser, String description, String date) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -33,12 +35,15 @@ public class AnswerRepository {
             statement.setString(4, date);
 
             if (statement.executeUpdate() != 1) {
+
                 throw new SQLException("failed to insert data");
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -46,10 +51,12 @@ public class AnswerRepository {
     }
 
     public int countAnswersByQuestion(int idQuestion) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -60,12 +67,15 @@ public class AnswerRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 int total = resultSet.getInt("total");
                 return total;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -73,12 +83,13 @@ public class AnswerRepository {
         return -1;
     }
 
-
     public List<Answer> findAnswerWithId(int idQuest) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -91,6 +102,7 @@ public class AnswerRepository {
             List<Answer> answers = new ArrayList<>();
 
             while (resultSet.next()) {
+
                 int idAnswer = resultSet.getInt("id_answer");
                 int idQuestion = resultSet.getInt("id_question");
                 int idUser = resultSet.getInt("id_user");
@@ -98,17 +110,17 @@ public class AnswerRepository {
                 Date date = resultSet.getDate("date");
                 answers.add(new Answer(idAnswer, idQuestion, idUser, description, date));
             }
-
             return answers;
           
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
         }
         return null;
     }
-
 }

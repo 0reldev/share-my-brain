@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Question {
+
     private int idQuestion;
     private String title;
     private String description;
@@ -15,19 +16,19 @@ public class Question {
     private String skillName;
     private List<Answer> answers;
 
-    // Empty constructor
     public Question() {
     }
 
     public Question(int idQuestion, String title, String description, int idUser) {
+
         this.idQuestion = idQuestion;
         this.title = title;
         this.description = description;
         this.idUser = idUser;
     }
 
-        //Constructor with all items
     public Question(int id, String title, String description, int idUser, int idSkill, Date date) {
+
         this.idQuestion = id;
         this.title = title;
         this.description = description;
@@ -35,7 +36,9 @@ public class Question {
         this.idSkill = idSkill;
         this.date = date;
     }
+
     public Question(int id, String title, String description, int idUser, int idSkill, Date date, String questionUserName) {
+
         this.idQuestion = id;
         this.title = title;
         this.description = description;
@@ -44,7 +47,9 @@ public class Question {
         this.date = date;
         this.questionUserName = questionUserName;
     }
+
     public Question(int id, String title, String description, int idUser, int idSkill, Date date, String questionUserName, String skillName) {
+
         this.idQuestion = id;
         this.title = title;
         this.description = description;

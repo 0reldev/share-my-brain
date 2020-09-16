@@ -15,43 +15,47 @@ public class QuestionRepository {
 
 
     public List<Question> findWithLimit(int limit, int offset, Boolean newest) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
             if (newest) {
+
                 statement = connection.prepareStatement(
                         "SELECT * FROM question ORDER BY `date` DESC LIMIT ?,?;"
                 );
             } else {
+
                 statement = connection.prepareStatement(
                         "SELECT * FROM question ORDER BY `date` ASC LIMIT ?,?;"
                 );
             }
-
             statement.setInt(2, limit);
             statement.setInt(1, offset);
             resultSet = statement.executeQuery();
-
             List<Question> questions = new ArrayList<>();
 
             while (resultSet.next()) {
+
                 int id = resultSet.getInt("id_question");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
                 Date date = resultSet.getDate("date");
                 int idUser = resultSet.getInt("id_user");
                 int idSkill = resultSet.getInt("id_skill");
-
                 questions.add(new Question(id, title, description, idUser, idSkill, date));
             }
             return questions;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -60,18 +64,22 @@ public class QuestionRepository {
     }
 
     public int totalLines(int idSkill) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
             if (idSkill == -1) {
+
                 statement = connection.prepareStatement(
                         "SELECT COUNT(*) as count FROM question;"
                 );
             } else {
+
                 statement = connection.prepareStatement(
                         "SELECT COUNT(*) as count FROM question where id_skill = ?;"
                 );
@@ -79,12 +87,14 @@ public class QuestionRepository {
             }
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
+
                 return resultSet.getInt("count");
             }
-
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -93,18 +103,22 @@ public class QuestionRepository {
     }
 
     public List<Question> findWithSkill(int limit, int offset, int idSkill, Boolean newest) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
             if (newest) {
+
                 statement = connection.prepareStatement(
                         "SELECT * FROM question  WHERE id_skill = ? ORDER BY `date` DESC LIMIT ?,?;"
                 );
             } else {
+
                 statement = connection.prepareStatement(
                         "SELECT * FROM question  WHERE id_skill = ? ORDER BY `date` ASC LIMIT ?,?;"
                 );
@@ -118,6 +132,7 @@ public class QuestionRepository {
             List<Question> questions = new ArrayList<>();
 
             while (resultSet.next()) {
+
                 int id = resultSet.getInt("id_question");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
@@ -127,8 +142,10 @@ public class QuestionRepository {
             }
             return questions;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -137,10 +154,12 @@ public class QuestionRepository {
     }
 
     public Question findQuestion(int idQuestion) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -151,19 +170,20 @@ public class QuestionRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
                 Date date = resultSet.getDate("date");
                 int idUser = resultSet.getInt("id_user");
                 int idSkill = resultSet.getInt("id_skill");
-
                 Question question = new Question(idQuestion, title, description, idUser, idSkill, date);
-
                 return question;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -172,10 +192,12 @@ public class QuestionRepository {
     }
 
     public void askQuestion(String question_title, String question, String date, int idUser, int idSkill) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -189,24 +211,28 @@ public class QuestionRepository {
             statement.setInt(5, idSkill);
 
             if (statement.executeUpdate() != 1) {
+
                 throw new SQLException("failed to insert data");
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
         }
     }
 
-
     public List<Question> findWithUserId(int idUser) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -215,10 +241,9 @@ public class QuestionRepository {
             );
             statement.setInt(1, idUser);
             resultSet = statement.executeQuery();
-
             List<Question> questions = new ArrayList<>();
-
             while (resultSet.next()) {
+
                 int id = resultSet.getInt("id_question");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
@@ -228,8 +253,10 @@ public class QuestionRepository {
             }
             return questions;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -238,10 +265,12 @@ public class QuestionRepository {
     }
 
     public List<Question> findQuestionsAnsweredByUserId(int userId) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -254,6 +283,7 @@ public class QuestionRepository {
             resultSet = statement.executeQuery();
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
+
                 int idQuestion = resultSet.getInt("question");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("descript");
@@ -262,8 +292,10 @@ public class QuestionRepository {
             }
             return questions;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -272,14 +304,17 @@ public class QuestionRepository {
     }
 
     public List<Question> search(int limit, int offset, String word, boolean newest) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
             if (newest) {
+
                 statement = connection.prepareStatement(
                         "SELECT * FROM question " +
                                 "JOIN skill ON question.id_skill = skill.id_skill " +
@@ -288,6 +323,7 @@ public class QuestionRepository {
                                 "LIMIT ?,?;"
                 );
             } else {
+
                 statement = connection.prepareStatement(
                         "SELECT * FROM question " +
                                 "JOIN skill ON question.id_skill = skill.id_skill " +
@@ -308,6 +344,7 @@ public class QuestionRepository {
             List<Question> questions = new ArrayList<>();
 
             while (resultSet.next()) {
+
                 int id = resultSet.getInt("id_question");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
@@ -319,8 +356,10 @@ public class QuestionRepository {
             }
             return questions;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -329,10 +368,12 @@ public class QuestionRepository {
     }
 
     public int totalSearch(String word) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -350,8 +391,10 @@ public class QuestionRepository {
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);

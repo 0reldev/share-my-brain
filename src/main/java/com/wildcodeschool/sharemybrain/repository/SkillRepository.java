@@ -15,10 +15,12 @@ public class SkillRepository {
     private final static String DB_PASSWORD = "p0uleR3qu3st?";
 
     public List<Skill> findAllSkills() {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -29,14 +31,17 @@ public class SkillRepository {
 
             List<Skill> skills = new ArrayList<>();
             while (resultSet.next()) {
+
                 int id = resultSet.getInt("id_skill");
                 String name = resultSet.getString("name");
                 skills.add(new Skill(id, name));
             }
             return skills;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -45,10 +50,12 @@ public class SkillRepository {
     }
 
     public Skill findSkillById(int idSkill) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -59,13 +66,16 @@ public class SkillRepository {
             resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
+
                 String name = resultSet.getString("name");
                  return new Skill(idSkill, name);
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -73,10 +83,12 @@ public class SkillRepository {
         return null;
     }
     public String findSkillNameById(int idSkill) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -92,8 +104,10 @@ public class SkillRepository {
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);

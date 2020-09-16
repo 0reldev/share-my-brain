@@ -12,17 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class MainController {
+
     UserRepository userRepository = new UserRepository();
     AvatarRepository avatarRepository = new AvatarRepository();
 
     @GetMapping("/")
     public String index(Model model, @CookieValue(value = "username", defaultValue = "Atta") String username) {
+
         Boolean logged;
         if (username.equals("Atta")) {
+
             logged = false;
             model.addAttribute("username", "");
             model.addAttribute("avatar", "");
         } else {
+
             logged = true;
             int idAvatar = userRepository.findAvatar(username);
             model.addAttribute("username", username);
@@ -34,12 +38,12 @@ public class MainController {
 
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
+
         Cookie cookie = new Cookie("username", null);
         cookie.setMaxAge(0);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
 
-        //add cookie to response
         response.addCookie(cookie);
         return "redirect:/";
     }
