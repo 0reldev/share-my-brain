@@ -3,6 +3,7 @@ package com.wildcodeschool.sharemybrain.entity;
 import java.util.Date;
 
 public class Answer {
+
     private int idAnswer;
     private int idQuestion;
     private int idUser;
@@ -10,10 +11,10 @@ public class Answer {
     private Date date;
     private String userName;
 
-
     public Answer() {}
 
     public Answer(int idAnswer, int idQuestion, int idUser, String answerText) {
+
         this.idAnswer = idAnswer;
         this.idQuestion = idQuestion;
         this.idUser = idUser;
@@ -21,13 +22,16 @@ public class Answer {
     }
 
     public Answer(int idAnswer, int idQuestion, int idUser, String answerText, Date date) {
+
         this.idAnswer = idAnswer;
         this.idQuestion = idQuestion;
         this.idUser = idUser;
         this.description = answerText;
         this.date = date;
     }
+
     public Answer(int idAnswer, int idQuestion, int idUser, String answerText, Date date, String userName) {
+
         this.idAnswer = idAnswer;
         this.idQuestion = idQuestion;
         this.idUser = idUser;

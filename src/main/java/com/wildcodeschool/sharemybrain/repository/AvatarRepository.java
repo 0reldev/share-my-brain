@@ -18,6 +18,7 @@ public class AvatarRepository {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -35,8 +36,10 @@ public class AvatarRepository {
             }
             return avatars;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -45,10 +48,12 @@ public class AvatarRepository {
     }
 
     public Avatar findAvatar(int idAvatar) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -59,13 +64,16 @@ public class AvatarRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 String url = resultSet.getString("url");
                 return new Avatar(idAvatar, url);
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);

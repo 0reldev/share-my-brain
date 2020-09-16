@@ -6,15 +6,18 @@ import com.wildcodeschool.sharemybrain.util.JdbcUtils;
 import java.sql.*;
 
 public class UserRepository {
+
     private final static String DB_URL = "jdbc:mysql://localhost:3306/share_my_brain?serverTimezone=GMT";
     private final static String DB_USER = "poule";
     private final static String DB_PASSWORD = "p0uleR3qu3st?";
 
     public boolean findAnyUsername(String userName) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -25,11 +28,14 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 return true;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -38,10 +44,12 @@ public class UserRepository {
     }
 
     public boolean findUsernamePsw(String psw, String username) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -53,11 +61,14 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 return true;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -66,10 +77,12 @@ public class UserRepository {
     }
 
     public boolean findAnyEmail(String email) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -80,11 +93,14 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 return true;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -93,10 +109,12 @@ public class UserRepository {
     }
 
     public void insertNewUser(User user) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -110,12 +128,14 @@ public class UserRepository {
             statement.setInt(5, user.getIdSkill());
 
             if (statement.executeUpdate() != 1) {
+
                 throw new SQLException("failed to insert data");
             }
-
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -123,10 +143,12 @@ public class UserRepository {
     }
 
     public int findSkill(String username) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -137,12 +159,15 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 int idSkill = resultSet.getInt("id_skill");
                 return idSkill;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -154,6 +179,7 @@ public class UserRepository {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -164,12 +190,15 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 int idUser = resultSet.getInt("id_user");
                 return idUser;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -178,10 +207,12 @@ public class UserRepository {
     }
 
     public int findAvatar(String username) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -192,12 +223,15 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 int idSkill = resultSet.getInt("id_avatar");
                 return idSkill;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -206,10 +240,12 @@ public class UserRepository {
     }
 
     public int findAvatarById(int idUser) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -220,12 +256,15 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 int idSkill = resultSet.getInt("id_avatar");
                 return idSkill;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -234,10 +273,12 @@ public class UserRepository {
     }
 
     public int findUserName(int userId) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -248,23 +289,29 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 int idUser = resultSet.getInt("id_user");
                 return idUser;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
         }
         return -1;
     }
+
     public String findUserNameWithIdAnswer(int answerId) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -279,19 +326,24 @@ public class UserRepository {
                 return answerUserName;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
         }
         return null;
     }
+
     public String findUserNameWithIQuestion(int questionId) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -302,12 +354,15 @@ public class UserRepository {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+
                 String questionUserName = resultSet.getString("username");
                 return questionUserName;
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
@@ -316,10 +371,12 @@ public class UserRepository {
     }
 
     public int updatePsw(String username, String newPsw) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
@@ -330,12 +387,15 @@ public class UserRepository {
             statement.setString(2, username);
 
             if (statement.executeUpdate() != 1) {
+
                 throw new SQLException("failed to update data");
             }
             return 0;
         } catch (SQLException e) {
+
             e.printStackTrace();
         } finally {
+
             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);

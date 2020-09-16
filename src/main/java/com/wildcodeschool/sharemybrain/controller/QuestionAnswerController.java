@@ -27,7 +27,9 @@ public class QuestionAnswerController {
     public String share(Model model, @RequestParam(required = false, defaultValue = "1") int page,
                         @CookieValue(value = "username", defaultValue = "Atta") String username,
                         @RequestParam(required = false, defaultValue = "newest") String sort) {
+
         if (username.equals("Atta")) {
+
             return "/error";
         }
 
@@ -38,9 +40,11 @@ public class QuestionAnswerController {
         int qtyQuestions = questionRepository.totalLines(idSkill);
         int numPages = (int) Math.ceil((double) qtyQuestions / limit);
         if (question_offset + limit > qtyQuestions) {
+
             limit = qtyQuestions - question_offset;
         }
         if (numPages == 0) {
+
             numPages = 1;
         }
         model.addAttribute("page", page);
@@ -50,14 +54,17 @@ public class QuestionAnswerController {
 
         List<Question> questions = new ArrayList<>();
         if (idSkill == -1) {
+
             questions = questionRepository.findWithLimit(limit, question_offset, newest);
         } else {
+
             questions = questionRepository.findWithSkill(limit, question_offset, idSkill, newest);
         }
 
         Map<Question, Avatar> avatarQuestMap = new LinkedHashMap<>();
         int avatarId;
         for (Question question : questions) {
+
             avatarId = userRepository.findAvatarById(question.getIdUser());
             avatarQuestMap.put(question, avatarRepository.findAvatar(avatarId));
             question.setCountAnswers(answerRepository.countAnswersByQuestion(question.getIdQuestion()));
@@ -73,7 +80,9 @@ public class QuestionAnswerController {
 
     @GetMapping("/ask")
     public String ask(Model model, @CookieValue(value = "username", defaultValue = "Atta") String username) {
+
         if (username.equals("Atta")) {
+
             return "/error";
         }
         model.addAttribute("skills", skillRepository.findAllSkills());
@@ -85,15 +94,16 @@ public class QuestionAnswerController {
 
     @GetMapping("/answer/{question}")
     public String answer(Model model, @PathVariable int question, @CookieValue(value = "username", defaultValue = "Atta") String username) {
+
         if (username.equals("Atta")) {
+
             return "/error";
         }
-        //avatar and user name for header
+
         int idAvatar = userRepository.findAvatar(username);
         model.addAttribute("username", username);
         model.addAttribute("avatar", avatarRepository.findAvatar(idAvatar).getUrl());
 
-        //Check if the skill of the user is the same as answer
         int idSkillUser = userRepository.findSkill(username);
         Question questionDescr = questionRepository.findQuestion(question);
         boolean isSkill =  idSkillUser == questionDescr.getIdSkill();
@@ -107,7 +117,8 @@ public class QuestionAnswerController {
         List<Answer> answers = answerRepository.findAnswerWithId(question);
         Map<Answer, Avatar> avatarAnswerMap = new LinkedHashMap<>();
         int avatarAnswerId;
-        for (Answer answer : answers){
+        for (Answer answer : answers) {
+
             avatarAnswerId = repository.findAvatarById(answer.getIdUser());
             avatarAnswerMap.put(answer, avatarRepository.findAvatar(avatarAnswerId));
             String answerUsername = userRepository.findUserNameWithIdAnswer(answer.getIdAnswer());
@@ -155,6 +166,7 @@ public class QuestionAnswerController {
         int qtyQuestions = questionRepository.totalSearch(searching);
         int numPages = (int) Math.ceil((double) qtyQuestions / limit);
         if (numPages == 0) {
+
             numPages = 1;
         }
         model.addAttribute("page", page);
@@ -168,6 +180,7 @@ public class QuestionAnswerController {
         Map<Question, Avatar> avatarQuestMap = new LinkedHashMap<>();
         int avatarId;
         for (Question question : questions) {
+
             avatarId = userRepository.findAvatarById(question.getIdUser());
             avatarQuestMap.put(question, avatarRepository.findAvatar(avatarId));
             question.setCountAnswers(answerRepository.countAnswersByQuestion(question.getIdQuestion()));
@@ -181,7 +194,5 @@ public class QuestionAnswerController {
         model.addAttribute("searching", searching);
         return "/search";
     }
-
-
 }
 

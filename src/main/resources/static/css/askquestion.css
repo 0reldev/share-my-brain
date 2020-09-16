@@ -50,8 +50,8 @@ select {
 }
 
 /* desktop */
-
 @media screen and (min-width: 768px) {
+
     h2 {
         text-align: left;
         margin-left: 2rem;
@@ -68,6 +68,7 @@ select {
     select {
         width: 86%;
     }
+
     .register {
         display: flex;
         flex-direction: column;
